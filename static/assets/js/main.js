@@ -27,7 +27,7 @@ loadCSS('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icon
 });
 if(window.location.pathname === "/index.html" || window.location.pathname === "/") {
   console.log("[✔️] Index.html");
-  const options = ["Right-Click to access more features", "Set a custom background in settings.", "Tab Cloaking is highly recommended", "About:Blank Cloak is highly recommended", "This site was originally created as a joke", "Hosted on Vercel!", "Do not share this link with anyone.", "Join our Discord for more cool things!", "Join our Discord for more cool things!", "© Copyright 2026 Hubsy Network. All Rights Reserved.", "Customize Doge by going to Settings > Themes", "Want more links? Our Discord provides tons of links!", "Want more links? Our Discord provides tons of links!", "Want more links? Our Discord provides tons of links!", "Hi, fowntain here!", ];
+  const options = ["Right-Click to access more features", "Did you know that Hubsy is Hub and Doggy combined? But it was misspelled when making the site.", "Tab Cloaking is highly recommended", "About:Blank Cloak is highly recommended", "This site was originally created as a joke", "Hosted on Vercel!", "Do not share this link with anyone.", "Join our Discord for more cool things!", "Join our Discord for more cool things!", "© Copyright 2026 Hubsy Network. All Rights Reserved.", "Customize Doge by going to Settings > Themes", "Want more links? Our Discord provides tons of links!", "Want more links? Our Discord provides tons of links!", "Want more links? Our Discord provides tons of links!", "Hi, fowntain here!", ];
 
   function getRandomOption() {
     const randomNumber = Math.floor(Math.random() * options.length);
@@ -63,3 +63,4 @@ window.addEventListener("load", function() {
   }
 
 });
+
