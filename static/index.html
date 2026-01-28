@@ -4,12 +4,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
   <link rel="icon" id="icon" href="/assets/img/salyte.jpg">
+
   <script src="/assets/js/cdn-rocket.js?v=3" defer></script>
   <link rel="stylesheet" href="/assets/css/app.css?v=3">
   <link rel="stylesheet" href="/assets/css/menu.css?v=3">
+
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js?v=3"></script>
   <script src="/assets/js/anym.js?v=3"></script>
+
   <title>Dashboard | Salyte</title>
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-HWLK0PZVBM"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -21,7 +25,7 @@
 
 <body>
 
-<!-- 🔐 AUTH OVERLAY -->
+<!-- 🔐 PASSWORD OVERLAY -->
 <div id="authOverlay" style="
   position:fixed;
   inset:0;
@@ -57,9 +61,69 @@
   </div>
 </div>
 
+<!-- 🔥 FIREBASE + GOOGLE LOGIN -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+  import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    signOut,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCJ7echa_fnQY5eS_ZcDSuCvckzxQKPK5Y",
+    authDomain: "tfg-80b6d.firebaseapp.com",
+    projectId: "tfg-80b6d",
+    storageBucket: "tfg-80b6d.firebasestorage.app",
+    messagingSenderId: "966847356792",
+    appId: "1:966847356792:web:b230ffa2a9447f0e0f328d",
+    measurementId: "G-YS06XJCNMR"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  // ❌ BLOCKED EMAILS
+  const blockedEmails = [
+    "sebastianishot68@gmail.com",
+    "31jgiroux14@epschoolsri.com",
+    "31lmckay74@epschoolsri.com"
+  ];
+
+  async function googleLogin() {
+    const result = await signInWithPopup(auth, provider);
+    const email = result.user.email;
+
+    if (blockedEmails.includes(email)) {
+      alert("🚫 This email is blocked from accessing this site.");
+      await signOut(auth);
+      document.body.innerHTML = "";
+      return;
+    }
+
+    console.log("Allowed:", email);
+  }
+
+  onAuthStateChanged(auth, user => {
+    if (!user) {
+      googleLogin();
+    } else {
+      if (blockedEmails.includes(user.email)) {
+        alert("🚫 Access denied.");
+        signOut(auth);
+        document.body.innerHTML = "";
+      }
+    }
+  });
+</script>
+
+<!-- 🔑 PASSWORD SCRIPT -->
 <script>
 (function () {
-  const PASSWORD = "ChAnGeMe!@#$%^&*9"; // 🔒 CHANGE THIS
+  const PASSWORD = "ChAnGeMe!@#$%^&*9";
 
   const overlay = document.getElementById("authOverlay");
 
@@ -81,62 +145,10 @@
 })();
 </script>
 
-<!-- APP SCRIPTS -->
+<!-- APP FILES -->
 <script src="/baremux/index.js?v=3"></script>
 <script src="/wk/wk2.js?v=3"></script>
 <script src="/wk/wk3.js?v=3"></script>
-
-<div id="contextMenu" class="context-menu themesExcluded" style="--ripple-duration: 300ms;">
-  <div class="context-menu-item with-submenu themesExcluded" onclick="toggleSubmenu(event)">
-    <i class="bi bi-file-spreadsheet"></i> Tab Cloak
-  </div>
-  <div class="context-submenu themesExcluded">
-    <div class="context-menu-item themesExcluded" onclick="tabCloak()">Enable</div>
-    <div class="context-menu-item themesExcluded" onclick="disableTabCloak()">Disable</div>
-  </div>
-  <div class="context-menu-item themesExcluded" onclick="visitSite()">
-    <i class="bi bi-clock-history"></i> Last Visited Site
-  </div>
-  <div class="context-menu-item themesExcluded" onclick="openWindow()">
-    <i class="bi bi-box-arrow-up-right"></i> About:Blank Cloak
-  </div>
-  <div class="context-menu-item themesExcluded" onclick="openSettings()">
-    <i class="bi bi-gear"></i> View all Settings
-  </div>
-</div>
-
-<nav id="mytopnav">
-  <button class="btn-main" onclick="send('/settings.html')">
-    <i class="bi bi-gear" style="font-size:30px;"></i>Settings
-  </button>
-  <button class="btn-main" onclick="send('/gms')">
-    <i class="bi bi-joystick" style="font-size:30px;"></i>Games
-  </button>
-  <button class="btn-main" onclick="send('/apps')">
-    <i class="bi bi-grid-fill" style="font-size:30px;"></i>Apps
-  </button><br>
-  <a href="#" class="title">
-    <img src="/assets/img/doge2.jpg" style="width:22px;height:22px;" id="logo">
-   Hubsy
-  </a>
-</nav>
-
-<div style="text-align:center;color:white;margin-top:80px;" class="themesExcluded">
-  <i class="bi bi-search search"></i>
-  <form method="POST" id="uform" autocomplete="off">
-    <input type="text" name="url" class="browse-input" placeholder="Type URL or search query">
-    <p class="splashText" id="placeholder"></p>
-  </form>
-
-  <div class="footer themesExcluded" style="text-align:right;">
-    <a href="https://discord.gg/sWPHCdxCPU" target="_blank"><i class="bi bi-discord"></i></a>
-    <a href="https://github.com/dogenetwork/v4" target="_blank"><i class="bi bi-github"></i></a>
-  </div>
-
-  <div class="bottom-right-content themesExcluded">
-    <a href="/info">Site Info</a>
-  </div>
-</div>
 
 <script src="/assets/js/main.js?v=3"></script>
 <script src="/assets/js/index.js?v=3"></script>
@@ -146,4 +158,3 @@
 
 </body>
 </html>
-
